@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050714">
+<title>NEXUS GAMING | Future of Play</title>
+<style>
+:root{--bg:#050714;--panel:#0b1024;--line:#202e52;--cyan:#00e5ff;--purple:#9b5cff;--pink:#ff3bd4;--text:#eef3ff;--muted:#94a4c8;--green:#46ffb0}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -30%,#1b1850,transparent 65%),var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif;min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer;color:var(--text)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+header{position:sticky;top:0;z-index:10;background:#050714ed;backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:12px 4%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+.brand span{color:var(--cyan);text-shadow:0 0 18px #00e5ff77}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:3px;font-weight:500}
+nav{display:flex;gap:6px;overflow-x:auto;max-width:100%;scrollbar-width:thin}
+nav button,.ghost{background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 13px;white-space:nowrap}
+nav button:hover,nav button.active{background:#161331;border-color:var(--purple);color:#fff;box-shadow:0 0 18px #9b5cff22}
+main{width:min(1400px,94%);margin:24px auto 50px}
+.hero{min-height:290px;border:1px solid #24568a;border-radius:20px;overflow:hidden;position:relative;display:flex;align-items:center;background:linear-gradient(90deg,#05091cf5 5%,#07102ad9 43%,#07102a30),url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1500&q=85') center/cover}
+.hero-content{padding:clamp(22px,5vw,55px);max-width:700px}
+.eyebrow{color:var(--cyan);letter-spacing:4px;font-size:11px;font-weight:800}
+h1{font-size:clamp(36px,6vw,68px);line-height:1.02;margin:14px 0;text-transform:uppercase}
+h1 span{background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan));background-clip:text;color:transparent}
+p{line-height:1.6}
+.muted{color:var(--muted)}
+.btn{background:linear-gradient(110deg,#6a22ff,#007dff);border:1px solid #9e80ff;border-radius:10px;padding:12px 18px;font-weight:750;box-shadow:0 0 20px #652fff35}
+.btn:hover{filter:brightness(1.2);transform:translateY(-1px)}
+.btn.secondary{background:#101a35;border-color:var(--line);box-shadow:none}
+.btn.danger{background:#37152e;border-color:#a23a7e;box-shadow:none}
+.section{margin-top:28px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+h2{font-size:20px;margin:0}
+h3{margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card,.panel{background:linear-gradient(145deg,#10172c,#080d1c);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.card:hover{border-color:#7a54d9;transform:translateY(-3px);transition:.2s}
+.cover{height:145px;background:#10172b center/cover;position:relative}
+.cover:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#0b1024)}
+.card-body{padding:15px}
+.card h3{font-size:17px}
+.tag{display:inline-block;font-size:11px;color:var(--cyan);background:#00e5ff12;border:1px solid #00e5ff3b;border-radius:20px;padding:4px 8px;margin:2px 4px 9px 0}
+.card .btn{width:100%;padding:10px}
+.panel{padding:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{padding:17px;background:#0d1428;border:1px solid var(--line);border-radius:13px}
+.stat strong{display:block;font-size:27px;color:var(--cyan)}
+.stat small{color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.page{display:none;animation:appear .2s ease}
+.page.active{display:block}
+@keyframes appear{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+input[type=text],input[type=number],select{background:#060b19;border:1px solid var(--line);border-radius:9px;color:var(--text);padding:11px;width:100%;margin:5px 0 12px}
+label{display:block;color:var(--muted);font-size:13px;margin-top:12px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row>*{flex:1}
+.game-area{min-height:230px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1px dashed #354568;border-radius:13px;padding:22px;margin-top:15px;background:radial-gradient(ellipse,#16123b,#080d1c 70%)}
+.big{font-size:48px;font-weight:900}
+#reactionPad{width:100%;min-height:175px;border:0;border-radius:12px;background:#301426;font-size:23px;font-weight:800}
+#reactionPad.ready{background:#063c32;color:#6bffce}
+#reactionPad.waiting{background:#40240d;color:#ffcf79}
+.memory-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:min(400px,100%);margin:15px auto}
+.memory-cell{min-height:65px;background:#111a34;border:1px solid #384b7d;border-radius:10px;font-size:25px}
+.memory-cell.open{background:#292054;border-color:var(--purple)}
+.memory-cell.matched{background:#064034;border-color:var(--green)}
+.question{font-size:20px;font-weight:750;margin:18px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.answer{background:#10172d;border:1px solid #303f65;border-radius:10px;padding:13px;text-align:left}
+.answer:hover{border-color:var(--cyan)}
+.answer.correct{border-color:var(--green);background:#06372c}
+.answer.wrong{border-color:#ff557b;background:#3c1225}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--cyan);font-size:12px;text-transform:uppercase}
+.progress{height:9px;background:#202b47;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));width:0;transition:width .3s}
+.toggle{width:46px;height:25px;accent-color:#8c5cff}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:12px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;background:#151e38;border:1px solid var(--cyan);border-radius:12px;padding:12px 18px;display:none;max-width:90%;text-align:center;box-shadow:0 0 25px #00e5ff20}
+body.light{--bg:#edf2ff;--panel:#fff;--text:#11182d;--muted:#52617d;--line:#c5d0e7;background:#edf2ff}
+body.light header{background:#edf2ffee}
+body.light .card,body.light .panel,body.light .stat{background:#fff}
+body.light input,body.light select{background:#fff;color:#11182d}
+@media(max-width:950px){header{align-items:flex-start;flex-direction:column;gap:8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){main{width:92%;margin-top:15px}.hero{min-height:300px}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr}.grid{gap:10px}.cover{height:110px}.card-body{padding:11px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:23px}nav{width:100%}nav button{padding:9px 11px}.answers{grid-template-columns:1fr}h1{font-size:42px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">NEXUS<span>GAMING</span><small>PLAY THE NEXT LEVEL</small></div>
+  <nav id="nav">
+    <button class="active" data-page="home">⌂ Home</button>
+    <button data-page="games">🎮 Games</button>
+    <button data-page="scores">🏆 Scores</button>
+    <button data-page="quiz">◈ Quiz</button>
+    <button data-page="system">⚙ System</button>
+    <button data-page="levels">⬡ Levels</button>
+    <button data-page="sound">♫ Sound</button>
+  </nav>
+</header>
+
+<main>
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">YOUR GAMING UNIVERSE</div>
+      <h1>ENTER THE<br><span>NEXUS</span></h1>
+      <p>Play mini-games. Beat your records. Test your gaming knowledge. Level up your legend.</p>
+      <button class="btn" onclick="showPage('games')">▶ START PLAYING</button>
+    </div>
+  </div>
+  <div class="section stats">
+    <div class="stat"><small>TOTAL SCORE</small><strong id="homeScore">0</strong><small>All mini-games</small></div>
+    <div class="stat"><small>PLAYER LEVEL</small><strong id="homeLevel">1</strong><small id="homeRank">Rookie</small></div>
+    <div class="stat"><small>XP EARNED</small><strong id="homeXP">0</strong><small>Keep progressing</small></div>
+    <div class="stat"><small>GAMES PLAYED</small><strong id="homePlayed">0</strong><small>Personal records</small></div>
+  </div>
+  <div class="section">
+    <div class="section-head"><h2>▰ FEATURED GAMES</h2><button class="ghost" onclick="showPage('games')">View all →</button></div>
+    <div class="grid">
+      <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Reaction Rush</h3><span class="tag">SPEED</span><p class="muted">Test your reflexes.</p><button class="btn" onclick="launchGame('reaction')">PLAY NOW</button></div></article>
+      <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Memory Matrix</h3><span class="tag">BRAIN</span><p class="muted">Match every pair.</p><button class="btn" onclick="launchGame('memory')">PLAY NOW</button></div></article>
+      <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Number Blitz</h3><span class="tag">ARCADE</span><p class="muted">Solve before time runs out.</p><button class="btn" onclick="launchGame('blitz')">PLAY NOW</button></div></article>
+      <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Gaming Quiz</h3><span class="tag">KNOWLEDGE</span><p class="muted">Explore gaming history.</p><button class="btn" onclick="showPage('quiz')">ENTER QUIZ</button></div></article>
+    </div>
+  </div>
+  <div class="section two">
+    <div class="panel"><h2>⬡ PLAYER PROGRESSION</h2><p class="muted" id="homeProgressText">0 / 100 XP to next level</p><div class="progress"><div id="homeProgress"></div></div><button class="btn secondary" onclick="showPage('levels')">VIEW LEVELS</button></div>
+    <div class="panel"><h2>◈ QUICK ACCESS</h2><p class="muted">Your next challenge is waiting. Every game adds XP to your profile.</p><button class="btn" onclick="showPage('scores')">OPEN SCOREBOARD →</button></div>
+  </div>
+</section>
+
+<section class="page" id="games">
+  <div class="section-head"><div><div class="eyebrow">ARCADE MODULES</div><h2>GAME ZONE</h2></div><span class="tag">3 PLAYABLE GAMES</span></div>
+  <p class="muted">Choose a challenge. Your best results are saved on this device.</p>
+  <div class="grid">
+    <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Reaction Rush</h3><span class="tag">REFLEX</span><p class="muted">Click when the panel turns green.</p><button class="btn" onclick="launchGame('reaction')">PLAY</button></div></article>
+    <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Memory Matrix</h3><span class="tag">PUZZLE</span><p class="muted">Find matching symbol pairs.</p><button class="btn" onclick="launchGame('memory')">PLAY</button></div></article>
+    <article class="card"><div class="cover" style="background-image:url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80')"></div><div class="card-body"><h3>Number Blitz</h3><span class="tag">ARCADE</span><p class="muted">Answer as many sums as possible in 30 seconds.</p><button class="btn" onclick="launchGame('blitz')">PLAY</button></div></article>
+  </div>
+  <div class="section panel" id="gamePanel">
+    <h2 id="gameTitle">READY PLAYER ONE?</h2>
+    <p class="muted" id="gameDescription">Select a game above to begin your challenge.</p>
+    <div id="gameArea" class="game-area"><div class="big">NEXUS</div><p>YOUR NEXT LEVEL STARTS HERE</p></div>
+  </div>
+</section>
+
+<section class="page" id="scores">
+  <div class="eyebrow">PERFORMANCE CENTER</div><h2>YOUR SCOREBOARD</h2>
+  <p class="muted">Records are stored locally in your browser. They are not shared online.</p>
+  <div class="section stats">
+    <div class="stat"><small>BEST REACTION</small><strong id="bestReaction">—</strong><small>Milliseconds</small></div>
+    <div class="stat"><small>MEMORY RECORD</small><strong id="bestMemory">0</strong><small>Points</small></div>
+    <div class="stat"><small>BLITZ RECORD</small><strong id="bestBlitz">0</strong><small>Correct answers</small></div>
+    <div class="stat"><small>QUIZ RECORD</small><strong id="bestQuiz">0</strong><small>Points / 100</small></div>
+  </div>
+  <div class="section panel"><div class="section-head"><h2>RECENT RESULTS</h2><button class="btn secondary" onclick="resetScores()">RESET RECORDS</button></div>
+  <div style="overflow-x:auto"><table><thead><tr><th>Game</th><th>Result</th><th>Best</th></tr></thead><tbody id="scoreRows"></tbody></table></div>
+  <p class="muted">Tip: finish a game or quiz to add your result here.</p></div>
+</section>
+
+<section class="page" id="quiz">
+  <div class="eyebrow">KNOWLEDGE PROTOCOL</div><h2>GAMING HISTORY QUIZ</h2>
+  <p class="muted">Explore the milestones that shaped video games. Ten questions, one final score.</p>
+  <div class="panel section">
+    <div class="row"><span class="tag" id="quizProgress">QUESTION 1 / 10</span><span class="tag" id="quizPoints">SCORE: 0</span></div>
+    <div id="quizContent"><div class="game-area"><div class="big">?</div><p>READY TO TEST YOUR KNOWLEDGE?</p><button class="btn" onclick="startQuiz()">START QUIZ</button></div></div>
+  </div>
+</section>
+
+<section class="page" id="system">
+  <div class="eyebrow">CONTROL CENTER</div><h2>SYSTEM SETTINGS</h2><p class="muted">Customize the experience on this device.</p>
+  <div class="section two">
+    <div class="panel"><h3>DISPLAY CONFIGURATION</h3>
+      <label>Interface theme</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="dark">Nexus Dark</option><option value="light">Light Mode</option></select>
+      <label>Visual effects</label><select id="fxSelect" onchange="saveSettings()"><option value="on">Neon effects enabled</option><option value="off">Reduced effects</option></select>
+      <label>Player nickname</label><input id="nickname" type="text" maxlength="20" placeholder="Enter a nickname">
+      <button class="btn" onclick="saveSettings()">SAVE SETTINGS</button>
+    </div>
+    <div class="panel"><h3>DEVICE STATUS</h3>
+      <p>Platform <strong id="platform" style="float:right">Browser</strong></p><p>Connection <strong id="connection" style="float:right">Checking...</strong></p><p>Storage <strong style="float:right">Local browser</strong></p><p>Account <strong style="float:right">Offline profile</strong></p>
+      <p class="muted">This is a browser-based gaming hub. It does not change your phone's actual graphics, FPS, or system performance.</p>
+      <button class="btn secondary" onclick="showPage('sound')">OPEN AUDIO CONTROLS</button>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="levels">
+  <div class="eyebrow">PLAYER DEVELOPMENT</div><h2>LEVELS & ACHIEVEMENTS</h2>
+  <div class="section panel">
+    <div class="row"><div><p class="muted">CURRENT PLAYER</p><h2 id="playerName">Rookie Player</h2><p id="rankName">ROOKIE</p></div><div style="text-align:right"><div class="big" id="levelBig">01</div><span class="tag">PLAYER LEVEL</span></div></div>
+    <div class="progress"><div id="levelProgress"></div></div><p id="levelText" class="muted">0 XP</p>
+  </div>
+  <div class="section three" id="levelCards"></div>
+  <div class="section panel"><h3>ACHIEVEMENTS</h3><div class="three" id="achievements"></div></div>
+</section>
+
+<section class="page" id="sound">
+  <div class="eyebrow">AUDIO LAB</div><h2>SOUND & EFFECTS</h2><p class="muted">Audio starts only after you interact with the page.</p>
+  <div class="section two">
+    <div class="panel"><h3>MASTER CONTROLS</h3>
+      <label>Master volume <span id="masterValue">35%</span></label><input id="masterVolume" type="range" min="0" max="100" value="35" style="width:100%;accent-color:#9b5cff" oninput="updateVolumeLabels()">
+      <label>Sound effects</label><div class="row"><span>Enable interface sounds</span><input class="toggle" id="soundToggle" type="checkbox" checked onchange="saveSettings()"></div>
+      <label>Ambient effects</label><div class="row"><span>Use short synth tones</span><input class="toggle" id="ambientToggle" type="checkbox" checked onchange="saveSettings()"></div>
+      <button class="btn" onclick="playTone(660,.16);notify('Audio test played')">▶ TEST SOUND</button>
+    </div>
+    <div class="panel"><h3>AVAILABLE EFFECTS</h3><p>◈ Button confirmation</p><p>◈ Game start signal</p><p>◈ Correct answer tone</p><p>◈ Level-up chime</p><p class="muted">Audio is synthesized in your browser; no sound files are downloaded.</p><button class="btn secondary" onclick="soundEnabled=!soundEnabled;document.getElementById('soundToggle').checked=soundEnabled;saveSettings()">TOGGLE SOUND</button></div>
+  </div>
+</section>
+</main>
+<footer>NEXUS GAMING © <span id="year"></span> · BUILT FOR PLAYERS · PLAY · LEARN · LEVEL UP</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const defaults={total:0,xp:0,played:0,quizBest:0,records:{reaction:null,memory:0,blitz:0,quiz:0},history:[],nickname:"Rookie Player",theme:"dark",fx:"on",sound:true,ambient:true,volume:35,quizPlayed:false};
+let data;
+try{data={...defaults,...JSON.parse(localStorage.getItem('nexusSave')||'{}')};data.records={...defaults.records,...(data.records||{})};data.history=data.history||[]}catch(e){data={...defaults,records:{...defaults.records},history:[]}}
+let soundEnabled=data.sound!==false,quizIndex=0,quizScore=0,quizLocked=false,quizQuestions=[],gameTimer=null,gameToken=0;
+function persist(){try{localStorage.setItem('nexusSave',JSON.stringify(data))}catch(e){}}
+function notify(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.style.display='none',2200)}
+function playTone(freq=520,duration=.1){if(!soundEnabled||!$('soundToggle')?.checked)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=freq;g.gain.value=(Number($('masterVolume')?.value||data.volume)/100)*.07;o.connect(g);g.connect(ctx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+duration);o.stop(ctx.currentTime+duration);o.onended=()=>ctx.close()}catch(e){}}
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===name));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));if(name==='scores')renderScores();if(name==='levels')renderLevels();if(name==='home')renderHome();if(name==='sound')updateVolumeLabels();playTone(460,.06);window.scrollTo({top:0,behavior:'smooth'})}
+$('nav').addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(b)showPage(b.dataset.page)});
+function level(){return Math.floor(data.xp/100)+1}
+function rank(){let l=level();return l>=20?'NEXUS LEGEND':l>=10?'ELITE PLAYER':l>=5?'VETERAN':l>=3?'PRO PLAYER':'ROOKIE'}
+function addResult(game,score,detail,bestValue){data.total+=Math.max(0,Number(score)||0);data.played++;data.xp+=Math.max(10,Math.floor((Number(score)||0)/2));data.history.unshift({game,score,detail,date:new Date().toLocaleDateString()});data.history=data.history.slice(0,30);if(bestValue!==undefined){if(game==='Reaction Rush'){if(data.records.reaction===null||bestValue<data.records.reaction)data.records.reaction=bestValue}else if(game==='Memory Matrix')data.records.memory=Math.max(data.records.memory,bestValue);else if(game==='Number Blitz')data.records.blitz=Math.max(data.records.blitz,bestValue);else if(game==='Gaming Quiz')data.records.quiz=Math.max(data.records.quiz,bestValue)}persist();renderHome();renderScores();renderLevels();notify('Result saved · +' + Math.max(10,Math.floor((Number(score)||0)/2))+' XP');playTone(820,.16)}
+function renderHome(){if(!$('homeScore'))return;$('homeScore').textContent=data.total;$('homeLevel').textContent=level();$('homeRank').textContent=rank();$('homeXP').textContent=data.xp;$('homePlayed').textContent=data.played;$('homeProgressText').textContent=(data.xp%100)+' / 100 XP to next level';$('homeProgress').style.width=(data.xp%100)+'%'}
+function renderScores(){ $('bestReaction').textContent=data.records.reaction===null?'—':data.records.reaction+' ms';$('bestMemory').textContent=data.records.memory;$('bestBlitz').textContent=data.records.blitz;$('bestQuiz').textContent=data.records.quiz;const rows=$('scoreRows');rows.innerHTML='';if(!data.history.length){rows.innerHTML='<tr><td colspan="3" class="muted">No results yet. Play a game to create your first record.</td></tr>';return}data.history.forEach(h=>{const tr=document.createElement('tr');[h.game,String(h.score)+(h.detail?' · '+h.detail:''),h.date].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});rows.appendChild(tr)})}
+function renderLevels(){$('playerName').textContent=data.nickname||'Rookie Player';$('levelBig').textContent=String(level()).padStart(2,'0');$('rankName').textContent=rank();$('levelText').textContent=data.xp+' total XP · '+(data.xp%100)+' / 100 toward next level';$('levelProgress').style.width=(data.xp%100)+'%';const milestones=[{n:1,x:0,t:'Rookie',d:'Begin your journey'},{n:2,x:100,t:'Explorer',d:'Earn 100 XP'},{n:3,x:200,t:'Pro Player',d:'Earn 200 XP'},{n:5,x:400,t:'Veteran',d:'Earn 400 XP'},{n:10,x:900,t:'Elite',d:'Earn 900 XP'},{n:20,x:1900,t:'Nexus Legend',d:'Earn 1900 XP'}];$('levelCards').innerHTML=milestones.map(m=>'<div class="panel"><div style="font-size:28px">'+(data.xp>=m.x?'◈':'◇')+'</div><h3>'+m.t+'</h3><p class="muted">'+m.d+'</p><span class="tag">'+(data.xp>=m.x?'UNLOCKED':'LOCKED')+'</span></div>').join('');const achievements=[['First Mission',data.played>=1,'Finish any game'],['Quiz Initiate',data.quizPlayed,'Complete the quiz'],['Score Hunter',data.total>=100,'Earn 100 total points'],['Level Up',level()>=2,'Reach level 2'],['Memory Master',data.records.memory>=100,'Score 100 memory points'],['Speed Demon',data.records.reaction!==null&&data.records.reaction<350,'React in under 350 ms']];$('achievements').innerHTML=achievements.map(a=>'<div class="panel"><h3>'+(a[1]?'✓ ':'◇ ')+a[0]+'</h3><p class="muted">'+a[2]+'</p><span class="tag">'+(a[1]?'UNLOCKED':'LOCKED')+'</span></div>').join('')}
+function setTheme(v){document.body.classList.toggle('light',v==='light');data.theme=v;persist()}
+function saveSettings(){data.nickname=$('nickname').value.trim().slice(0,20)||'Rookie Player';data.theme=$('themeSelect').value;data.fx=$('fxSelect').value;data.sound=$('soundToggle').checked;data.ambient=$('ambientToggle').checked;data.volume=Number($('masterVolume').value);soundEnabled=data.sound;document.body.classList.toggle('light',data.theme==='light');document.body.classList.toggle('no-fx',data.fx==='off');persist();renderHome();renderLevels();notify('Settings saved')}
+function updateVolumeLabels(){if($('masterValue'))$('masterValue').textContent=$('masterVolume').value+'%';data.volume=Number($('masterVolume').value)}
+function resetScores(){if(!confirm('Reset all scores, XP, levels and recent results on this device?'))return;data={...defaults,records:{...defaults.records},history:[],nickname:data.nickname,theme:data.theme};persist();renderHome();renderScores();renderLevels();notify('Local records reset')}
+function launchGame(type){showPage('games');gameToken++;clearTimeout(gameTimer);const area=$('gameArea');area.innerHTML='';$('gameTitle').textContent=({reaction:'REACTION RUSH',memory:'MEMORY MATRIX',blitz:'NUMBER BLITZ'})[type];$('gameDescription').textContent=({reaction:'Wait for green, then tap as quickly as possible.',memory:'Match all eight pairs using as few moves as you can.',blitz:'Solve as many sums as you can in 30 seconds.'})[type];if(type==='reaction')startReaction(area,gameToken);if(type==='memory')startMemory(area,gameToken);if(type==='blitz')startBlitz(area,gameToken);area.scrollIntoView({behavior:'smooth',block:'center'})}
+function startReaction(area,token){let state='idle',start=0,timeout;const b=document.createElement('button');b.id='reactionPad';b.textContent='TAP TO START';area.appendChild(b);const info=document.createElement('p');info.className='muted';info.textContent='Best: '+(data.records.reaction===null?'No record':data.records.reaction+' ms');area.appendChild(info);b.onclick=()=>{if(token!==gameToken)return;playTone(450,.08);if(state==='idle'||state==='done'){state='waiting';b.className='waiting';b.textContent='WAIT FOR GREEN...';timeout=setTimeout(()=>{if(token!==gameToken)return;state='ready';start=performance.now();b.className='ready';b.textContent='TAP NOW!'},1200+Math.random()*2600)}else if(state==='waiting'){clearTimeout(timeout);state='done';b.className='';b.textContent='TOO EARLY! RETRY';notify('Too early! Wait for green.')}else if(state==='ready'){let ms=Math.round(performance.now()-start);state='done';b.className='';b.textContent=ms+' ms — PLAY AGAIN';info.textContent='Reaction time: '+ms+' ms';addResult('Reaction Rush',Math.max(1,1000-ms),ms+' ms',ms)}}}
+const symbols=['◆','●','▲','★','✦','⬟','♥','☯'];
+function startMemory(area,token){let deck=[...symbols,...symbols].sort(()=>Math.random()-.5),open=[],matched=new Set(),moves=0,locked=false,points=0;const score=document.createElement('p');score.textContent='Moves: 0 · Pairs: 0 / 8';area.appendChild(score);const grid=document.createElement('div');grid.className='memory-grid';area.appendChild(grid);deck.forEach((s,i)=>{const b=document.createElement('button');b.className='memory-cell';b.textContent='?';b.setAttribute('aria-label','Hidden card');b.onclick=()=>{if(token!==gameToken||locked||matched.has(i)||open.includes(i))return;b.textContent=s;b.classList.add('open');open.push(i);playTone(500,.05);if(open.length===2){moves++;locked=true;const [a,c]=open;if(deck[a]===deck[c]){matched.add(a);matched.add(c);[a,c].forEach(k=>grid.children[k].classList.add('matched'));points+=Math.max(10,100-moves*3);open=[];locked=false;score.textContent='Moves: '+moves+' · Pairs: '+matched.size/2+' / 8';if(matched.size===16){points=Math.max(10,points);score.textContent='COMPLETE! '+points+' points in '+moves+' moves.';addResult('Memory Matrix',points,moves+' moves',points)} }else{setTimeout(()=>{if(token!==gameToken)return;[a,c].forEach(k=>{grid.children[k].textContent='?';grid.children[k].classList.remove('open')});open=[];locked=false},650)}}};grid.appendChild(b)})}
+function startBlitz(area,token){let score=0,time=30,ended=false;const s=document.createElement('p');s.textContent='Correct: 0 · Time: 30s';area.appendChild(s);const q=document.createElement('div');q.className='question';area.appendChild(q);const input=document.createElement('input');input.type='number';input.placeholder='Your answer';input.inputMode='numeric';input.setAttribute('aria-label','Answer');area.appendChild(input);const b=document.createElement('button');b.className='btn';b.textContent='SUBMIT';area.appendChild(b);const next=()=>{let a=1+Math.floor(Math.random()*30),c=1+Math.floor(Math.random()*20);q.dataset.answer=a+c;q.textContent=a+' + '+c+' = ?';input.value='';input.focus()};const finish=()=>{if(ended)return;ended=true;clearInterval(gameTimer);input.disabled=true;b.disabled=true;s.textContent='TIME UP · '+score+' correct answers';addResult('Number Blitz',score*20,score+' correct',score);};b.onclick=()=>{if(ended||token!==gameToken)return;if(input.value.trim()!==''&&Number(input.value)===Number(q.dataset.answer)){score++;playTone(750,.07)}else playTone(190,.09);s.textContent='Correct: '+score+' · Time: '+time+'s';next()};input.addEventListener('keydown',e=>{if(e.key==='Enter')b.click()});next();gameTimer=setInterval(()=>{if(token!==gameToken||ended){clearInterval(gameTimer);return}time--;s.textContent='Correct: '+score+' · Time: '+time+'s';if(time<=0)finish()},1000)}
+const questions=[
+{q:'Which company created the original Super Mario Bros. series?',a:['Nintendo','Sega','Atari','Sony'],c:0},
+{q:'Pong is best described as what type of game?',a:['Racing','Table-tennis arcade game','Role-playing','Platform shooter'],c:1},
+{q:'Which company released the PlayStation brand?',a:['Microsoft','Nintendo','Sony','Sega'],c:2},
+{q:'Minecraft was originally created by whom?',a:['Markus Persson','Shigeru Miyamoto','John Carmack','Gabe Newell'],c:0},
+{q:'Which franchise features Master Chief?',a:['Metroid','Halo','Doom','Destiny'],c:1},
+{q:'Pac-Man first appeared in arcades in which year?',a:['1972','1978','1980','1985'],c:2},
+{q:'Which company created Sonic the Hedgehog?',a:['Sega','Nintendo','Capcom','Konami'],c:0},
+{q:'The original Tetris was created by which designer?',a:['Alexey Pajitnov','Will Wright','Sid Meier','Hideo Kojima'],c:0},
+{q:'Which game helped popularize the battle royale genre worldwide in 2017?',a:['Fortnite Battle Royale','The Sims','Portal 2','Street Fighter II'],c:0},
+{q:'Which Nintendo console introduced motion-control gaming with a remote-like controller?',a:['GameCube','Wii','Nintendo 64','Switch'],c:1}
+];
+function startQuiz(){quizQuestions=questions.map(q=>({...q,a:[...q.a]})).sort(()=>Math.random()-.5);quizIndex=0;quizScore=0;quizLocked=false;renderQuestion()}
+function renderQuestion(){const root=$('quizContent');$('quizProgress').textContent='QUESTION '+Math.min(quizIndex+1,10)+' / 10';$('quizPoints').textContent='SCORE: '+quizScore;if(quizIndex>=quizQuestions.length){root.innerHTML='<div class="game-area"><div class="big">'+quizScore+'/10</div><h2>QUIZ COMPLETE</h2><p>You earned '+quizScore*10+' points.</p><button class="btn" onclick="startQuiz()">PLAY AGAIN</button></div>';data.quizPlayed=true;addResult('Gaming Quiz',quizScore*10,quizScore+'/10',quizScore*10);return}quizLocked=false;const q=quizQuestions[quizIndex];root.innerHTML='';const title=document.createElement('div');title.className='question';title.textContent=q.q;root.appendChild(title);const answers=document.createElement('div');answers.className='answers';q.a.forEach((ans,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+i)+'. '+ans;b.onclick=()=>{if(quizLocked)return;quizLocked=true;if(i===q.c){quizScore++;b.classList.add('correct');playTone(760,.12)}else{b.classList.add('wrong');answers.children[q.c].classList.add('correct');playTone(230,.13)}$('quizPoints').textContent='SCORE: '+quizScore;const next=document.createElement('button');next.className='btn';next.style.marginTop='18px';next.textContent=quizIndex===9?'VIEW RESULTS':'NEXT QUESTION →';next.onclick=()=>{quizIndex++;renderQuestion()};root.appendChild(next)};answers.appendChild(b)});root.appendChild(answers)}
+$('platform').textContent=navigator.userAgent.includes('Android')?'Android browser':navigator.platform||'Browser';$('connection').textContent=navigator.onLine?'Online':'Offline';window.addEventListener('online',()=>$('connection').textContent='Online');window.addEventListener('offline',()=>$('connection').textContent='Offline');$('year').textContent=new Date().getFullYear();
+$('themeSelect').value=data.theme||'dark';$('fxSelect').value=data.fx||'on';$('nickname').value=data.nickname||'';$('soundToggle').checked=data.sound!==false;$('ambientToggle').checked=data.ambient!==false;$('masterVolume').value=data.volume??35;soundEnabled=data.sound!==false;document.body.classList.toggle('light',data.theme==='light');document.body.classList.toggle('no-fx',data.fx==='off');renderHome();renderScores();renderLevels();updateVolumeLabels();
+</script>
+</body>
+</html>
